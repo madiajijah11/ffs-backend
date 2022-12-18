@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
       results: users,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error.message;
   }
 };
 exports.createUsers = async (req, res) => {
@@ -29,7 +29,7 @@ exports.createUsers = async (req, res) => {
       results: users,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error.message;
   }
 };
 
@@ -42,7 +42,7 @@ exports.getUserById = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error.message;
   }
 };
 
@@ -59,7 +59,7 @@ exports.updateUser = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error.message;
   }
 };
 
@@ -72,6 +72,6 @@ exports.deleteUser = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error.message;
   }
 };
