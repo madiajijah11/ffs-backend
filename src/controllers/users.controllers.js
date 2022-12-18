@@ -9,14 +9,14 @@ const bcrypt = require("bcrypt");
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await getUsers();
+    const user = await getUsers();
     res.status(200).json({
       status: "success",
       message: "Users retrieved successfully",
       results: users,
     });
   } catch (error) {
-    if (error) throw error.message;
+    if (error) throw error;
   }
 };
 exports.createUsers = async (req, res) => {
@@ -29,7 +29,7 @@ exports.createUsers = async (req, res) => {
       results: users,
     });
   } catch (error) {
-    if (error) throw error.message;
+    if (error) throw error;
   }
 };
 
@@ -42,7 +42,7 @@ exports.getUserById = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error.message;
+    if (error) throw error;
   }
 };
 
@@ -59,7 +59,7 @@ exports.updateUser = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error.message;
+    if (error) throw error;
   }
 };
 
@@ -72,6 +72,6 @@ exports.deleteUser = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error.message;
+    if (error) throw error;
   }
 };
