@@ -1,10 +1,8 @@
-const errorHandler =  (err, res) => {
-console.log(err)
+const errorHandler = (error, res) => {
+  return res.status(500).json({
+    success: false,
+    message: "Something happened in our backend",
+  });
+};
 
-return res.status(500).json({
-  success: false,
-  message: "Something happend in our backend"
-})
-}
-
-module.exports = errorHandler
+module.exports = errorHandler;

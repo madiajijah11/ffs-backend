@@ -11,7 +11,7 @@ exports.getAllProfileEmployee = async (req, res) => {
   try {
     const allProfileEmployee = await getAllProfileEmployee();
     res.status(200).json({
-      status: "success",
+      success: true,
       message: "All Profile Employee retrieved successfully",
       results: allProfileEmployee,
     });
@@ -24,7 +24,7 @@ exports.createProfileEmployee = async (req, res) => {
   try {
     const profileEmployee = await createProfileEmployee(req.body);
     res.status(200).json({
-      status: "success",
+      success: true,
       message: "Profile Employee created successfully",
       results: profileEmployee,
     });
@@ -37,7 +37,7 @@ exports.getProfileEmployeeById = async (req, res) => {
   try {
     const profileEmployee = await getProfileEmployeeById(req.params.id);
     res.status(200).json({
-      status: "success",
+      success: true,
       message: "Profile Employee retrieved successfully",
       results: profileEmployee,
     });
@@ -53,7 +53,7 @@ exports.updateProfileEmployee = async (req, res) => {
       req.body
     );
     res.status(200).json({
-      status: "success",
+      success: true,
       message: "Profile Employee updated successfully",
       results: profileEmployee,
     });
@@ -66,7 +66,7 @@ exports.deleteProfileEmployee = async (req, res) => {
   try {
     const profileEmployee = await deleteProfileEmployee(req.params.id);
     res.status(200).json({
-      status: "success",
+      success: true,
       message: "Profile Employee deleted successfully",
       results: profileEmployee,
     });
