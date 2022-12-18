@@ -6,6 +6,7 @@ const {
   deleteUser,
 } = require("../models/users.model");
 const bcrypt = require("bcrypt");
+const errorHandler = require('../helpers/errorHandler.helper')
 
 exports.getUsers = async (req, res) => {
   try {
@@ -16,7 +17,7 @@ exports.getUsers = async (req, res) => {
       results: users,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };
 exports.createUsers = async (req, res) => {
@@ -29,7 +30,7 @@ exports.createUsers = async (req, res) => {
       results: users,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -42,7 +43,7 @@ exports.getUserById = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -59,7 +60,7 @@ exports.updateUser = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -72,6 +73,6 @@ exports.deleteUser = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };

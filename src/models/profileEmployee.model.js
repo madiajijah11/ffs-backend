@@ -1,12 +1,13 @@
 const dbHelper = require("../helpers/db.helper");
+const errorHandler = require('../helpers/errorHandler.helper')
 
 exports.getAllProfileEmployee = async () => {
   try {
     const sql = 'SELECT * FROM "profileEmployee"';
     const newProfile = await dbHelper.query(sql);
     return newProfile.rows;
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -24,8 +25,8 @@ exports.createProfileEmployee = async (data) => {
     ];
     const newProfile = await dbHelper.query(sql, values);
     return newProfile.rows[0];
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -34,8 +35,8 @@ exports.getProfileEmployeeById = async (id) => {
     const sql = `SELECT * FROM "profileEmployee" WHERE id = $1`;
     const newProfile = await dbHelper.query(sql, [id]);
     return newProfile.rows[0];
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -54,8 +55,8 @@ exports.updateProfileEmployee = async (id, data) => {
     ];
     const newProfile = await dbHelper.query(sql, values)
     return newProfile.rows[0]
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -65,6 +66,6 @@ exports.deleteProfileEmployee = async (id) => {
     const newProfile = await dbHelper.query(sql, [id]);
     return newProfile.rows[0];
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };

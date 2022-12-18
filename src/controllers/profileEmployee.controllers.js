@@ -5,6 +5,7 @@ const {
   updateProfileEmployee,
   deleteProfileEmployee,
 } = require("../models/profileEmployee.model");
+const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getAllProfileEmployee = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ exports.getAllProfileEmployee = async (req, res) => {
       results: allProfileEmployee,
     });
   } catch (error) {
-    if (error) throw error;
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -27,8 +28,8 @@ exports.createProfileEmployee = async (req, res) => {
       message: "Profile Employee created successfully",
       results: profileEmployee,
     });
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -40,8 +41,8 @@ exports.getProfileEmployeeById = async (req, res) => {
       message: "Profile Employee retrieved successfully",
       results: profileEmployee,
     });
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -56,8 +57,8 @@ exports.updateProfileEmployee = async (req, res) => {
       message: "Profile Employee updated successfully",
       results: profileEmployee,
     });
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
 
@@ -69,7 +70,7 @@ exports.deleteProfileEmployee = async (req, res) => {
       message: "Profile Employee deleted successfully",
       results: profileEmployee,
     });
-  } catch (err) {
-    if (err) throw err;
+  } catch (error) {
+    if (error) return errorHandler(error, res);
   }
 };
