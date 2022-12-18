@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 
 exports.getUsers = async (req, res) => {
   try {
-    const user = await getUsers();
+    const users = await getUsers();
     res.status(200).json({
       status: "success",
       message: "Users retrieved successfully",
