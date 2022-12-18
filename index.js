@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const routers = require("./src/routers");
+
 require("dotenv").config({
   path: ".env",
 });
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/assets/uploads", express.static("uploads/"));
+
+app.use(routers);
 
 app.get("/", (req, res) => {
   return res.status(200).json({
