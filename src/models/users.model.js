@@ -25,7 +25,6 @@ exports.createUser = async (data) => {
     const newUser = await dbHelper.query(sql, values);
     return newUser.rows[0];
   } catch (error) {
-    console.log(err);
     if (error) throw error;
   }
 };
@@ -66,7 +65,6 @@ exports.updateUser = async (id, data) => {
     if (error) throw error;
   }
 };
-
 exports.deleteUser = async (id) => {
   try {
     const sql = `DELETE FROM users WHERE id = $1 RETURNING *`;
