@@ -1,5 +1,4 @@
 const dbHelper = require("../helpers/db.helper");
-const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getUsers = async () => {
   try {
@@ -7,7 +6,7 @@ exports.getUsers = async () => {
     const users = await dbHelper.query(sql);
     return users.rows;
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -26,7 +25,7 @@ exports.createUser = async (data) => {
     const newUser = await dbHelper.query(sql, values);
     return newUser.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -36,7 +35,7 @@ exports.getUserById = async (id) => {
     const user = await dbHelper.query(sql, [id]);
     return user.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -63,7 +62,7 @@ exports.updateUser = async (id, data) => {
     const user = await dbHelper.query(sql, values);
     return user.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -73,6 +72,6 @@ exports.deleteUser = async (id) => {
     const user = await dbHelper.query(sql, [id]);
     return user.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };

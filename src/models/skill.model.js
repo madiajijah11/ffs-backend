@@ -1,5 +1,4 @@
 const dbHelper = require("../helpers/db.helper");
-const errorHandler = require('../helpers/errorHandler.helper')
 
 exports.getAllSkill = async () => {
   try {
@@ -7,7 +6,7 @@ exports.getAllSkill = async () => {
     const newSkill = await dbHelper.query(sql);
     return newSkill.rows;
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -20,7 +19,7 @@ exports.createSkill = async (data) => {
     const newSkill = await dbHelper.query(sql, values);
     return newSkill.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -30,7 +29,7 @@ exports.getSkillById = async (id) => {
     const newSkill = await dbHelper.query(sql, [id]);
     return newSkill.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -44,7 +43,7 @@ exports.updateSkill = async (id, data) => {
     const newSkill = await dbHelper.query(sql, values)
     return newSkill.rows[0]
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -54,6 +53,6 @@ exports.deleteSkill = async (id) => {
     const newSkill = await dbHelper.query(sql, [id]);
     return newSkill.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
