@@ -25,6 +25,7 @@ exports.createUser = async (data) => {
     const newUser = await dbHelper.query(sql, values);
     return newUser.rows[0];
   } catch (error) {
+    console.log(err);
     if (error) throw error;
   }
 };
@@ -33,6 +34,16 @@ exports.getUserById = async (id) => {
   try {
     const sql = `SELECT * FROM users WHERE id = $1`;
     const user = await dbHelper.query(sql, [id]);
+    return user.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
+exports.findOneByEmail = async (email) => {
+  try {
+    const sql = `SELECT * FROM users WHERE email = $1`;
+    const user = await dbHelper.query(sql, [email]);
     return user.rows[0];
   } catch (error) {
     if (error) throw error;

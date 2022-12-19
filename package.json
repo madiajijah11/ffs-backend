@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/madiajijah11/ffs-backend#readme",
 	"dependencies": {
+		"argon2": "^0.30.2",
 		"bcrypt": "^5.1.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.3",
