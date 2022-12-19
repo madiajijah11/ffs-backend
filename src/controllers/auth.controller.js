@@ -113,7 +113,7 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
-    const { password, confirmPassword } = req.body; //destruc dari req.body
+    const { password, confirmPassword } = req.body;
     if (password === confirmPassword) {
       const users = await selectUserByEmailAndCode(req.body);
       if (users) {
@@ -131,7 +131,7 @@ const resetPassword = async (req, res) => {
     } else {
       return res.status(400).json({
         success: false,
-        message: "password and confirm password must be match",
+        message: "Password and confirm password must be match",
       });
     }
   } catch (error) {
