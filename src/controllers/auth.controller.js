@@ -10,7 +10,6 @@ const {
   selectUserByEmailAndCode,
   deleteForgotPassword,
 } = require("../models/forgotPasswords.model");
-const bcrypt = require("bcrypt");
 const argon = require("argon2");
 const jwt = require("jsonwebtoken");
 
@@ -19,7 +18,7 @@ const login = async (req, res) => {
     const user = await selectUserByEmail(req.body.email);
     const token = jwt.sign(
       { id: user.id, role: user.groupUser },
-      "key-backend"
+      process.env.SECRET_KEY
     );
     if (user.groupUser == 1) {
       if (await argon.verify(user.password, req.body.password)) {
@@ -112,12 +111,13 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
-    const { password, confirmPassword } = req.body; //destruc dari req.body
+    const { password, confirmPassword } = req.body;
     if (password === confirmPassword) {
       const users = await selectUserByEmailAndCode(req.body);
       if (users) {
-        const reset = await updateUser(users.userId, { password });
-        reset.password = await bcrypt.hash(reset.password, 10);
+        const newPassword = await argon.hash(req.body.password);
+        const reset = await updateUser(users.userId, { password: newPassword });
+
         if (reset) {
           await deleteForgotPassword(users.id);
           return res.status(200).json({
@@ -129,7 +129,7 @@ const resetPassword = async (req, res) => {
     } else {
       return res.status(400).json({
         success: false,
-        message: "password and confirm password must be match",
+        message: "Password and confirm password must be match",
       });
     }
   } catch (error) {
