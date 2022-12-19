@@ -58,6 +58,7 @@ exports.updateWorkExperience = async (req, res) => {
       results: updateWorkExperiences,
     });
   } catch (error) {
+    console.log(error)
     if (error) return errorHandler(error, res);
   }
 };
@@ -67,7 +68,7 @@ exports.deleteWorkExperience = async (req, res) => {
     const deleteWorkExperiences = await deleteWorkExperience(req.params.id);
     res.status(200).json({
       success: true,
-      message: "Profile Employee deleted successfully",
+      message: "Work Experience deleted successfully",
       results: deleteWorkExperiences,
     });
   } catch (error) {
