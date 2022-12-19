@@ -12,11 +12,8 @@ exports.getAllForgotPassword = async () => {
 
 exports.createForgotPassword = async (data) => {
   try {
-    const sql = `INSERT INTO "forgotPassword" (email, code) VALUES ($1, $2) RETURNING *`;
-    const values = [
-      data.email,
-      data.code
-    ];
+    const sql = `INSERT INTO "forgotPassword" (email, code, "userId") VALUES ($1, $2, $3) RETURNING *`;
+    const values = [data.email, data.code, data.userId];
     const newForgotPassword = await dbHelper.query(sql, values);
     return newForgotPassword.rows[0];
   } catch (error) {
@@ -37,13 +34,9 @@ exports.getForgotPasswordById = async (id) => {
 exports.updateForgotPassword = async (id, data) => {
   try {
     const sql = `UPDATE "forgotPassword" SET "email" = COALESCE(NULLIF($1, ''), "email"), "code" = COALESCE(NULLIF($2, ''), "code") WHERE id = $3 RETURNING *`;
-    const values = [
-      data.email,
-      data.code,
-      id,
-    ];
-    const newForgotPassword = await dbHelper.query(sql, values)
-    return newForgotPassword.rows[0]
+    const values = [data.email, data.code, id];
+    const newForgotPassword = await dbHelper.query(sql, values);
+    return newForgotPassword.rows[0];
   } catch (error) {
     if (error) throw error;
   }
@@ -54,6 +47,17 @@ exports.deleteForgotPassword = async (id) => {
     const sql = `DELETE FROM "forgotPassword" WHERE id = $1 RETURNING *`;
     const newForgotPassword = await dbHelper.query(sql, [id]);
     return newForgotPassword.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
+exports.selectUserByEmailAndCode = async (data) => {
+  try {
+    const sql = `SELECT * FROM "forgotPassword" WHERE email=$1 AND code=$2`;
+    const value = [data.email, data.code];
+    const newResetPassword = await dbHelper.query(sql, value);
+    return newResetPassword.rows[0];
   } catch (error) {
     if (error) throw error;
   }

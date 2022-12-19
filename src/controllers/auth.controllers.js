@@ -1,37 +1,26 @@
-const errorHandler = require('../helpers/errorHandler.helper')
-const selectUserByEmail = require('../models/users.model')
+const errorHandler = require("../helpers/errorHandler.helper");
+const { selectUserByEmail, updateUser } = require("../models/users.model");
+const {
+  createForgotPassword,
+  selectUserByEmailAndCode,
+  deleteForgotPassword,
+} = require("../models/forgotPasswords.model");
+const bcrypt=require("bcrypt")
 
 const forgotPassword = async (req, res) => {
   try {
-    const {email} = req.body
-    const forgotPassword = await selectUserByEmail(email)
-
-  } catch (error) {
-    if(error) errorHandler(err,res)
-  }
-
-  const { email } = req.body;
-  selectUserByEmail(email, (err, { rows: users }) => {
-    if (err) {
-      return errorHandler(err, res);
-    }
-    if (users.length) {
-      const [user] = users;
+    const { email } = req.body;
+    const users = await selectUserByEmail(email);
+    if (users) {
       const data = {
         email,
-        userId: user.id,
-        code: Math.ceil((Math.random() * 90000) + 10000),
+        userId: users.id,
+        code: Math.ceil(Math.random() * 90000 + 10000),
       };
-      modelCreatePassword(data, (err, { rows: results }) => {
-        if (err) {
-          return errorHandler(err, res);
-        }
-        if (results.length) {
-          return res.status(200).json({
-            success: true,
-            message: "Reset password has been requested.",
-          });
-        }
+      await createForgotPassword(data);
+      res.status(200).json({
+        success: true,
+        message: "Reset password has been requested.",
       });
     } else {
       return res.status(400).json({
@@ -39,47 +28,35 @@ const forgotPassword = async (req, res) => {
         message: "User not found",
       });
     }
-  });
+  } catch (error) {
+    if (error) errorHandler(error, res);
+  }
 };
 
-const resetPassword = (req, res) => {
-  const { password, confirmPassword } = req.body; //destruc dari req.body
-  if (password === confirmPassword) {
-    selectUserByEmailAndCode(req.body, (err, { rows: users }) => {
-      if (err) {
-        return errorHandler(err, res);
+const resetPassword = async (req, res) => {
+  try {
+    const { password, confirmPassword } = req.body; //destruc dari req.body
+    if (password === confirmPassword) {
+      const users = await selectUserByEmailAndCode(req.body);
+      if (users) {
+        const reset = await updateUser(users.userId, { password });
+        reset.password = await bcrypt.hash(reset.password, 10)
+        if (reset) {
+          await deleteForgotPassword(users.id);
+          return res.status(200).json({
+            success: true,
+            message: "Password updated, please relogin.",
+          });
+        }
       }
-      if (users.length) {
-        const [resetRequest] = users;
-
-        updatedUsers(
-          { password },
-          resetRequest.userId,
-          (err, { rows: users }) => {
-            if (err) {
-              return errorHandler(err, res);
-            }
-            if (users.length) {
-              //users disini dari distraction line 105
-              modelDeleteResetPassword(resetRequest.userId, (err, { rows }) => {
-                console.log(rows);
-                if (!rows.length) {
-                  return res.status(200).json({
-                    success: true,
-                    message: "Password updated, please relogin.",
-                  });
-                }
-              });
-            }
-          }
-        );
-      }
-    });
-  } else {
-    return res.status(400).json({
-      success: false,
-      message: "password and confirm password must be match",
-    });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "password and confirm password must be match",
+      });
+    }
+  } catch (error) {
+    if (error) errorHandler(error, res);
   }
 };
 
