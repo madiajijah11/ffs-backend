@@ -8,8 +8,10 @@ routers.use("/skill", require("./skill.router"));
 routers.use("/profileCompany", require("./profileCompany.router"));
 routers.use("/employeeSkill", require("./skillEmployee.router"));
 routers.use("/workTime", require("./workTime.router"));
+routers.use("/forgotPassword", require("./forgotPasswords.router"));
+routers.use("/employeeLists", require("./employeeLists.router"));
+routers.use("/portfolioEmployee", require("./portofolioEmployee.router"));
 
-
-// routers.use('/auth', require('./auth.router'))
+routers.use('/auth', require('./auth.router'))
 
 module.exports = routers;
