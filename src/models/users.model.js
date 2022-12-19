@@ -75,3 +75,15 @@ exports.deleteUser = async (id) => {
     if (error) throw error;
   }
 };
+
+exports.selectUserByEmail = async(email) => {
+  try{
+    const sql = `SELECT * FROM users WHERE email=$1`
+    const value = [email]
+    const userByEmail = await dbHelper.query(sql, value)
+    return userByEmail.rows[0]
+  } catch (error) {
+    if(error) throw error
+  }
+}
+

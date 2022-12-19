@@ -10,6 +10,6 @@ routers.use("/employeeSkill", require("./skillEmployee.router"));
 routers.use("/workTime", require("./workTime.router"));
 
 
-// routers.use('/auth', require('./auth.router'))
+routers.use('/auth', require('./auth.router'))
 
 module.exports = routers;
