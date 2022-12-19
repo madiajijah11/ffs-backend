@@ -4,6 +4,8 @@ const {
   getUserById,
   updateUser,
   deleteUser,
+  getUserProfilEmployee,
+  getUserProfilRecruiter,
 } = require("../models/users.model");
 const bcrypt = require("bcrypt");
 const errorHandler = require("../helpers/errorHandler.helper");
@@ -41,6 +43,40 @@ exports.getUserById = async (req, res) => {
       message: "User retrieved successfully",
       results: user,
     });
+  } catch (error) {
+    if (error) return errorHandler(error, res);
+  }
+};
+
+exports.getUserProfilRoleById = async (req, res) => {
+  try {
+    const user = await getUserById(req.params.id);
+    if (user.groupUser == 1){
+      const employee = await getUserProfilEmployee(user.id)
+      try{
+        res.status(200).json({
+          success: true,
+          message: "User retrieved successfully",
+          results: employee,
+        });
+      } catch(error){
+        if (error) return errorHandler(error, res);
+      }
+    }
+    else if (user.groupUser == 2){
+      const recruiter = await getUserProfilRecruiter(user.id)
+      try{
+        res.status(200).json({
+          success: true,
+          message: "User retrieved successfully",
+          results: recruiter,
+        });
+      } catch(error){
+        if (error) return errorHandler(error, res);
+      }
+    }
+
+
   } catch (error) {
     if (error) return errorHandler(error, res);
   }
