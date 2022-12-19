@@ -22,7 +22,6 @@ exports.createWorkExperience = async (data) => {
       data.endDate,
       data.jobDescription
     ];
-    console.log(values)
     const newData = await dbHelper.query(sql, values);
     return newData.rows[0];
   } catch (error) {
