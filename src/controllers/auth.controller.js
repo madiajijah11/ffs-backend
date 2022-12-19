@@ -117,8 +117,9 @@ const resetPassword = async (req, res) => {
     if (password === confirmPassword) {
       const users = await selectUserByEmailAndCode(req.body);
       if (users) {
-        const reset = await updateUser(users.userId, { password });
-        reset.password = await bcrypt.hash(reset.password, 10);
+        const newPassword = await argon.hash(req.body.password);
+        const reset = await updateUser(users.userId, {password: newPassword} );
+
         if (reset) {
           await deleteForgotPassword(users.id);
           return res.status(200).json({
