@@ -1,4 +1,5 @@
 const multer = require("multer");
+const errorHandler = require("../helpers/errorHandler.helper");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -23,10 +24,7 @@ const uploadImage = multer({
 module.exports = (req, res, next) => {
   uploadImage(req, res, (error) => {
     if (error) {
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+      return errorHandler(error, res);
     }
     next();
   });
