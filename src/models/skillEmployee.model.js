@@ -1,6 +1,6 @@
 const dbHelper = require("../helpers/db.helper");
 
-exports.getSkillEmpolyee = async () => {
+exports.getSkillEmployee = async () => {
   try {
     const sql = 'SELECT * FROM "employeeSkill"';
     const skill = await dbHelper.query(sql);
