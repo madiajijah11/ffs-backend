@@ -39,6 +39,17 @@ exports.getUserById = async (id) => {
   }
 };
 
+exports.getUserByEmail = async (email) => {
+  try {
+    const sql = `SELECT * FROM users WHERE email = $1`;
+    const user = await dbHelper.query(sql, [email]);
+    return user.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
+
 exports.updateUser = async (id, data) => {
   try {
     const sql = `UPDATE users SET "fullName" = COALESCE(NULLIF($1, ''), "fullName"),
