@@ -10,7 +10,6 @@ const {
   selectUserByEmailAndCode,
   deleteForgotPassword,
 } = require("../models/forgotPasswords.model");
-const bcrypt = require("bcrypt");
 const argon = require("argon2");
 const jwt = require("jsonwebtoken");
 
@@ -19,7 +18,7 @@ const login = async (req, res) => {
     const user = await selectUserByEmail(req.body.email);
     const token = jwt.sign(
       { id: user.id, role: user.groupUser },
-      "key-backend"
+      process.env.SECRET_KEY
     );
     if (user.groupUser == 1) {
       if (await argon.verify(user.password, req.body.password)) {
@@ -118,7 +117,7 @@ const resetPassword = async (req, res) => {
       const users = await selectUserByEmailAndCode(req.body);
       if (users) {
         const newPassword = await argon.hash(req.body.password);
-        const reset = await updateUser(users.userId, {password: newPassword} );
+        const reset = await updateUser(users.userId, { password: newPassword });
 
         if (reset) {
           await deleteForgotPassword(users.id);

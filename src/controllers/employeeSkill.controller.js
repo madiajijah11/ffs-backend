@@ -1,5 +1,5 @@
 const {
-  getSkillEmpolyee,
+  getSkillEmployee,
   getSkillEmployeeById,
   createSkillEmployee,
   updateSkillEmployee,
@@ -9,7 +9,7 @@ const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getSkillEmployees = async(req ,res )=>{
   try{
-    const skillEmployee = await getSkillEmpolyee()
+    const skillEmployee = await getSkillEmployee()
     res.status(200).json({
       success : true,
       message: "Skill Employee retrieved successfully",
@@ -42,7 +42,7 @@ exports.createSkillEmployee = async (req, res) => {
       results: skillEmployee,
     });
   } catch (error) {
-    if (error) {errorHandler(error, res);}
+    if (error) errorHandler(error, res);
   }
 };
 
