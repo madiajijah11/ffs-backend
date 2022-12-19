@@ -13,10 +13,11 @@ exports.getAllWorkExperience = async () => {
 
 exports.createWorkExperience = async (data) => {
   try {
-    const sql = `INSERT INTO "workExperience" ("userId", "position", "joinDate", "endDate", "jobDescription") VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const sql = `INSERT INTO "workExperience" ("userId", "position", "company", "joinDate", "endDate", "jobDescription") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
     const values = [
       data.userId,
       data.position,
+      data.company,
       data.joinDate,
       data.endDate,
       data.jobDescription
@@ -41,14 +42,14 @@ exports.getWorkExperienceById = async (id) => {
 
 exports.updateWorkExperience = async (id, data) => {
   try {
-    const sql = `UPDATE "workExperience" SET "userId" = COALESCE(NULLIF($1, '')::BIGINT, "userId"), "position" = COALESCE(NULLIF($2, ''), "position"), "company" = COALESCE(NULLIF($3, ''), "company"), "joinDate" = COALESCE(NULLIF($4, '')::TIMESTAMPTZ, "joinDate"), "endDate" = COALESCE(NULLIF($5, '')::TIMESTAMTZ, "endDate") WHERE id = $8 RETURNING *`;
+    const sql = `UPDATE "workExperience" SET "userId" = COALESCE(NULLIF($2, '')::BIGINT, "userId"), "position" = COALESCE(NULLIF($3, ''), "position"), "company" = COALESCE(NULLIF($4, ''), "company"), "joinDate" = COALESCE(NULLIF($5, '')::TIMESTAMPTZ, "joinDate"), "endDate" = COALESCE(NULLIF($6, '')::TIMESTAMPTZ, "endDate") WHERE id = $1 RETURNING *`;
     const values = [
+      id,
       data.userId,
       data.position,
       data.company,
       data.joinDate,
-      data.endDate,
-      id,
+      data.endDate
     ];
     const newData = await dbHelper.query(sql, values)
     return newData.rows[0]
