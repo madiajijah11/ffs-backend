@@ -7,6 +7,9 @@ routers.use("/groupUsers", require("./groupUsers.router"));
 routers.use("/skill", require("./skill.router"));
 routers.use("/profileCompany", require("./profileCompany.router"));
 routers.use("/employeeSkill", require("./skillEmployee.router"));
-routers.use("/auth", require("./auth.router"));
+routers.use("/workTime", require("./workTime.router"));
+routers.use("/forgotPassword", require("./forgotPasswords.router"));
+routers.use("/portofolioEmployee", require("./portofolioEmployee.router"));
+routers.use('/auth', require('./auth.router'))
 
 module.exports = routers;

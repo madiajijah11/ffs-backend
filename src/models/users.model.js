@@ -40,16 +40,6 @@ exports.getUserById = async (id) => {
   }
 };
 
-exports.findOneByEmail = async (email) => {
-  try {
-    const sql = `SELECT * FROM users WHERE email = $1`;
-    const user = await dbHelper.query(sql, [email]);
-    return user.rows[0];
-  } catch (error) {
-    if (error) throw error;
-  }
-};
-
 exports.updateUser = async (id, data) => {
   try {
     const sql = `UPDATE users SET "fullName" = COALESCE(NULLIF($1, ''), "fullName"),
@@ -81,6 +71,27 @@ exports.deleteUser = async (id) => {
   try {
     const sql = `DELETE FROM users WHERE id = $1 RETURNING *`;
     const user = await dbHelper.query(sql, [id]);
+    return user.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
+exports.selectUserByEmail = async(email) => {
+  try{
+    const sql = `SELECT * FROM users WHERE email=$1`
+    const value = [email]
+    const userByEmail = await dbHelper.query(sql, value)
+    return userByEmail.rows[0]
+  } catch (error) {
+    if(error) throw error
+  }
+}
+
+exports.getUserByEmail = async (email) => {
+  try {
+    const sql = `SELECT * FROM users WHERE email = $1`;
+    const user = await dbHelper.query(sql, [email]);
     return user.rows[0];
   } catch (error) {
     if (error) throw error;
