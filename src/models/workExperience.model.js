@@ -1,5 +1,4 @@
 const dbHelper = require("../helpers/db.helper");
-const errorHandler = require('../helpers/errorHandler.helper')
 
 exports.getAllWorkExperience = async () => {
   try {
@@ -7,7 +6,7 @@ exports.getAllWorkExperience = async () => {
     const newData = await dbHelper.query(sql);
     return newData.rows;
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -26,7 +25,7 @@ exports.createWorkExperience = async (data) => {
     const newData = await dbHelper.query(sql, values);
     return newData.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -36,7 +35,7 @@ exports.getWorkExperienceById = async (id) => {
     const newData = await dbHelper.query(sql, [id]);
     return newData.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -54,7 +53,7 @@ exports.updateWorkExperience = async (id, data) => {
     const newData = await dbHelper.query(sql, values)
     return newData.rows[0]
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -65,6 +64,6 @@ exports.deleteWorkExperience = async (id) => {
     const newData = await dbHelper.query(sql, [id]);
     return newData.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };

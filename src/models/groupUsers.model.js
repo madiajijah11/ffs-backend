@@ -1,5 +1,4 @@
 const dbHelper = require("../helpers/db.helper");
-const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getGroupUsers = async () => {
   try {
@@ -7,7 +6,7 @@ exports.getGroupUsers = async () => {
     const groupUsers = await dbHelper.query(sql);
     return groupUsers.rows;
   } catch (error) {
-    if (error) errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -18,7 +17,7 @@ exports.createGroupUser = async (data) => {
     const newGroupUser = await dbHelper.query(sql, values);
     return newGroupUser.rows[0];
   } catch (error) {
-    if (error) errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -28,7 +27,7 @@ exports.getGroupUserById = async (id) => {
     const groupUser = await dbHelper.query(sql, [id]);
     return groupUser.rows[0];
   } catch (error) {
-    if (error) errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -39,7 +38,7 @@ exports.updateGroupUser = async (id, data) => {
     const updatedGroupUser = await dbHelper.query(sql, values);
     return updatedGroupUser.rows[0];
   } catch (error) {
-    if (error) errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -49,6 +48,6 @@ exports.deleteGroupUser = async (id) => {
     const deletedGroupUser = await dbHelper.query(sql, [id]);
     return deletedGroupUser.rows[0];
   } catch (error) {
-    if (error) errorHandler(error, res);
+    if (error) throw error;
   }
 };

@@ -1,5 +1,4 @@
 const dbHelper = require("../helpers/db.helper");
-const errorHandler = require('../helpers/errorHandler.helper')
 
 exports.getAllProfileEmployee = async () => {
   try {
@@ -7,7 +6,7 @@ exports.getAllProfileEmployee = async () => {
     const newProfile = await dbHelper.query(sql);
     return newProfile.rows;
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -26,7 +25,7 @@ exports.createProfileEmployee = async (data) => {
     const newProfile = await dbHelper.query(sql, values);
     return newProfile.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -36,7 +35,7 @@ exports.getProfileEmployeeById = async (id) => {
     const newProfile = await dbHelper.query(sql, [id]);
     return newProfile.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -53,10 +52,10 @@ exports.updateProfileEmployee = async (id, data) => {
       data.description,
       id,
     ];
-    const newProfile = await dbHelper.query(sql, values)
-    return newProfile.rows[0]
+    const newProfile = await dbHelper.query(sql, values);
+    return newProfile.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
 
@@ -66,6 +65,6 @@ exports.deleteProfileEmployee = async (id) => {
     const newProfile = await dbHelper.query(sql, [id]);
     return newProfile.rows[0];
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) throw error;
   }
 };
