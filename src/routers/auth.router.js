@@ -3,12 +3,14 @@ const authRouter = require("express").Router();
 const {
   login,
   resetPassword,
-  register,
+  registerEmployee,
+  registerRecruiter,
   forgotPassword
 } = require("../controllers/auth.controller");
 
 authRouter.post("/login", login);
-authRouter.post("/register", register);
+authRouter.post("/registerEmployee", registerEmployee);
+authRouter.post("/registerRecruiter", registerRecruiter);
 authRouter.post("/forgotPassword", forgotPassword);
 authRouter.post("/resetPassword", resetPassword);
 

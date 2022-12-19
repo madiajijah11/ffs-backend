@@ -1,5 +1,5 @@
 const errorHandler = (error, res) => {
-  if (err.message.includes('unique constraint "users_email_key"')) {
+  if (error.message.includes('unique constraint "users_email_key"')) {
     return res.status(400).json({
       success: false,
       message: "Email sudah terdaftar",

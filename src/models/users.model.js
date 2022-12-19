@@ -18,7 +18,7 @@ exports.createUser = async (data) => {
       data.email,
       data.phoneNumber,
       data.password,
-      data.groupUser,
+      2,
       data.companyName,
       data.companyField,
     ];
@@ -77,22 +77,33 @@ exports.deleteUser = async (id) => {
   }
 };
 
-exports.selectUserByEmail = async(email) => {
-  try{
-    const sql = `SELECT * FROM users WHERE email=$1`
-    const value = [email]
-    const userByEmail = await dbHelper.query(sql, value)
-    return userByEmail.rows[0]
+exports.selectUserByEmail = async (email) => {
+  try {
+    const sql = `SELECT * FROM users WHERE email=$1`;
+    const value = [email];
+    const userByEmail = await dbHelper.query(sql, value);
+    return userByEmail.rows[0];
   } catch (error) {
-    if(error) throw error
+    if (error) throw error;
   }
-}
+};
 
 exports.getUserByEmail = async (email) => {
   try {
     const sql = `SELECT * FROM users WHERE email = $1`;
     const user = await dbHelper.query(sql, [email]);
     return user.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
+exports.createUserEmployee = async (data) => {
+  try {
+    const sql = `INSERT INTO users ("fullName", email, "phoneNumber", password, "groupUser") VALUES ($1, $2, $3, $4, 1) RETURNING *`;
+    const values = [data.fullName, data.email, data.phoneNumber, data.password];
+    const newUser = await dbHelper.query(sql, values);
+    return newUser.rows[0];
   } catch (error) {
     if (error) throw error;
   }
