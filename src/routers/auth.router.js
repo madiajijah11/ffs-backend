@@ -7,7 +7,7 @@ const {
   registerRecruiter,
   forgotPassword,
 } = require("../controllers/auth.controller");
-const { validate, rules } = require("../middlewares/vaidator.middleware");
+const { validate, rules } = require("../middlewares/validator.middleware");
 
 authRouter.post("/login", rules("login"), validate, login);
 authRouter.post(
