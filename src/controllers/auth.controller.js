@@ -55,7 +55,6 @@ const login = async (req, res) => {
     if (err) errorHandler(err, res);
   }
 };
-
 const registerEmployee = async (req, res) => {
   try {
     req.body.password = await argon.hash(req.body.password);
@@ -66,7 +65,7 @@ const registerEmployee = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) errorHandler(err, res);
+    if (error) errorHandler(error, res);
   }
 };
 
@@ -80,7 +79,7 @@ const registerRecruiter = async (req, res) => {
       results: user,
     });
   } catch (error) {
-    if (error) errorHandler(err, res);
+    if (error) errorHandler(error, res);
   }
 };
 
