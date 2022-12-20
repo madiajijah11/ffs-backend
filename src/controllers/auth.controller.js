@@ -57,6 +57,13 @@ const login = async (req, res) => {
 };
 
 const registerEmployee = async (req, res) => {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      success: false,
+      message: "Password and confirm password must be match",
+    });
+  }
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUserEmployee(req.body);
@@ -67,9 +74,9 @@ const registerEmployee = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Register Employee Success",
-      results:
-      user,
-      token,
+      results: {
+        token,
+      },
     });
   } catch (error) {
     if (error) errorHandler(error, res);
@@ -77,6 +84,13 @@ const registerEmployee = async (req, res) => {
 };
 
 const registerRecruiter = async (req, res) => {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      success: false,
+      message: "Password and confirm password must be match",
+    });
+  }
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUser(req.body);
@@ -87,9 +101,9 @@ const registerRecruiter = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Register Recruiter Success",
-      results:
-      user,
-      token,
+      results: {
+        token,
+      },
     });
   } catch (error) {
     if (error) errorHandler(error, res);
@@ -130,14 +144,18 @@ const resetPassword = async (req, res) => {
       if (users) {
         const newPassword = await argon.hash(req.body.password);
         const reset = await updateUser(users.userId, { password: newPassword });
-
         if (reset) {
           await deleteForgotPassword(users.id);
           return res.status(200).json({
             success: true,
-            message: "Password updated, please relogin.",
+            message: "Password updated, please re-login.",
           });
         }
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "Email or code is not valid",
+        });
       }
     } else {
       return res.status(400).json({
