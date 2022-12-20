@@ -12,16 +12,8 @@ const {
 } = require("../models/forgotPasswords.model");
 const argon = require("argon2");
 const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
 
 const login = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      message: errors,
-    });
-  }
   try {
     const user = await selectUserByEmail(req.body.email);
     const token = jwt.sign(
@@ -65,13 +57,6 @@ const login = async (req, res) => {
 };
 
 const registerEmployee = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      message: errors,
-    });
-  }
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUserEmployee(req.body);
@@ -92,13 +77,6 @@ const registerEmployee = async (req, res) => {
 };
 
 const registerRecruiter = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      message: errors,
-    });
-  }
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUser(req.body);

@@ -7,30 +7,19 @@ const {
   registerRecruiter,
   forgotPassword,
 } = require("../controllers/auth.controller");
-const { body } = require("express-validator");
+const { validate, rules } = require("../middlewares/vaidator.middleware");
 
-authRouter.post(
-  "/login",
-  body("email").isEmail().notEmpty().withMessage("Email is required"),
-  body("password").notEmpty().withMessage("Password is required"),
-  login
-);
+authRouter.post("/login", rules("login"), validate, login);
 authRouter.post(
   "/registerEmployee",
-  body("fullName").notEmpty().withMessage("Full Name is required"),
-  body("email").isEmail().notEmpty().withMessage("Email is required"),
-  body("phoneNumber").notEmpty().withMessage("Phone Number is required"),
-  body("password").notEmpty().withMessage("Password is required"),
+  rules("registerEmployee"),
+  validate,
   registerEmployee
 );
 authRouter.post(
   "/registerRecruiter",
-  body("fullName").notEmpty().withMessage("Full Name is required"),
-  body("email").isEmail().notEmpty().withMessage("Email is required"),
-  body("phoneNumber").notEmpty().withMessage("Phone Number is required"),
-  body("password").notEmpty().withMessage("Password is required"),
-  body("companyName").notEmpty().withMessage("Company Name is required"),
-  body("companyField").notEmpty().withMessage("Company Field is required"),
+  rules("registerRecruiter"),
+  validate,
   registerRecruiter
 );
 authRouter.post("/forgotPassword", forgotPassword);
