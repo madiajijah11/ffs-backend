@@ -46,6 +46,21 @@ exports.getWorkExperienceById = async (req, res) => {
   }
 };
 
+exports.getWorkExperienceById = async (req, res) => {
+  try {
+    const displayAllWorkExperienceById = await getWorkExperienceById(
+      req.params.id
+    );
+    res.status(200).json({
+      success: true,
+      message: "Work Experience retrieved successfully",
+      results: displayAllWorkExperienceById,
+    });
+  } catch (error) {
+    if (error) return errorHandler(error, res);
+  }
+};
+
 exports.updateWorkExperience = async (req, res) => {
   try {
     const updateWorkExperiences = await updateWorkExperience(

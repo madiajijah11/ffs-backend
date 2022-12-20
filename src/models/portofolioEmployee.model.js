@@ -36,6 +36,16 @@ exports.getPortofolioEmployeById = async (id) => {
   }
 };
 
+exports.getPortofolioEmployeByUserId = async (id) => {
+  try {
+    const sql = `SELECT * FROM "portofolioEmployee" WHERE "userId" = $1`;
+    const portofolioEmployee = await dbHelper.query(sql, [id]);
+    return portofolioEmployee.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
 exports.updatePortofolioEmployee = async (id, data) => {
   try {
     const sql = `UPDATE "portofolioEmployee" SET "appName" = COALESCE(NULLIF($1, ''), "appName"),
