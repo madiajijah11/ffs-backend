@@ -57,6 +57,13 @@ const login = async (req, res) => {
 };
 
 const registerEmployee = async (req, res) => {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      success: false,
+      message: "Password and confirm password must be match",
+    });
+  }
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUserEmployee(req.body);
@@ -77,6 +84,13 @@ const registerEmployee = async (req, res) => {
 };
 
 const registerRecruiter = async (req, res) => {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      success: false,
+      message: "Password and confirm password must be match",
+    });
+  }
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUser(req.body);
