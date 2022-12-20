@@ -22,7 +22,17 @@ authRouter.post(
   validate,
   registerRecruiter
 );
-authRouter.post("/forgotPassword", forgotPassword);
-authRouter.post("/resetPassword", resetPassword);
+authRouter.post(
+  "/forgotPassword",
+  rules("forgotPassword"),
+  validate,
+  forgotPassword
+);
+authRouter.post(
+  "/resetPassword",
+  rules("resetPassword"),
+  validate,
+  resetPassword
+);
 
 module.exports = authRouter;

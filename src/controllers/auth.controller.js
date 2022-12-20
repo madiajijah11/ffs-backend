@@ -130,14 +130,18 @@ const resetPassword = async (req, res) => {
       if (users) {
         const newPassword = await argon.hash(req.body.password);
         const reset = await updateUser(users.userId, { password: newPassword });
-
         if (reset) {
           await deleteForgotPassword(users.id);
           return res.status(200).json({
             success: true,
-            message: "Password updated, please relogin.",
+            message: "Password updated, please re-login.",
           });
         }
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "Email or code is not valid",
+        });
       }
     } else {
       return res.status(400).json({
