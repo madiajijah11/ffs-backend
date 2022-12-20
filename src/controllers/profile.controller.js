@@ -3,6 +3,7 @@ const { getWorkExperienceByUserId } = require("../models/workExperience.model");
 const {
   getPortofolioEmployeByUserId,
 } = require("../models/portofolioEmployee.model");
+const { getProfileCompanyByUserId } = require("../models/profileCompany.model");
 const jwt = require("jsonwebtoken");
 const errorHandler = require("../helpers/errorHandler.helper");
 const fs = require("fs");
@@ -16,10 +17,12 @@ exports.userProfile = async (req, res) => {
     const user = await getUser(id);
     const workExperience = await getWorkExperienceByUserId(id);
     const portofolioEmployee = await getPortofolioEmployeByUserId(id);
+    const profileCompany = await getProfileCompanyByUserId(id);
     const results = {
       user,
       workExperience,
       portofolioEmployee,
+      profileCompany,
     };
     return res.status(200).json({
       status: "success",
