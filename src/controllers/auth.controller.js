@@ -55,14 +55,21 @@ const login = async (req, res) => {
     if (err) errorHandler(err, res);
   }
 };
+
 const registerEmployee = async (req, res) => {
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUserEmployee(req.body);
+    const token = jwt.sign(
+      { id: user.id, role: user.groupUser },
+      process.env.SECRET_KEY
+    );
     return res.status(200).json({
       success: true,
       message: "Register Employee Success",
-      results: user,
+      results:
+      user,
+      token,
     });
   } catch (error) {
     if (error) errorHandler(error, res);
@@ -73,10 +80,16 @@ const registerRecruiter = async (req, res) => {
   try {
     req.body.password = await argon.hash(req.body.password);
     const user = await createUser(req.body);
+    const token = jwt.sign(
+      { id: user.id, role: user.groupUser },
+      process.env.SECRET_KEY
+    );
     return res.status(200).json({
       success: true,
       message: "Register Recruiter Success",
-      results: user,
+      results:
+      user,
+      token,
     });
   } catch (error) {
     if (error) errorHandler(error, res);
