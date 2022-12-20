@@ -67,9 +67,9 @@ const registerEmployee = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Register Employee Success",
-      results:
-      user,
-      token,
+      results: {
+        token,
+      },
     });
   } catch (error) {
     if (error) errorHandler(error, res);
@@ -87,9 +87,9 @@ const registerRecruiter = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Register Recruiter Success",
-      results:
-      user,
-      token,
+      results: {
+        token,
+      },
     });
   } catch (error) {
     if (error) errorHandler(error, res);
