@@ -36,20 +36,10 @@ const loginEmployee = async (req, res) => {
         });
       }
     } else {
-      if (await argon.verify(user.password, req.body.password)) {
-        return res.status(200).json({
-          success: true,
-          message: "Success Login Recruiter",
-          results: {
-            token,
-          },
-        });
-      } else {
-        return res.status(400).json({
-          success: false,
-          message: "Wrong Email or Password",
-        });
-      }
+      return res.status(400).json({
+        success: false,
+        message: "This email is not registered as an employee",
+      });
     }
   } catch (err) {
     if (err) errorHandler(err, res);
@@ -62,22 +52,7 @@ const loginRecruiter = async (req, res) => {
       { id: user.id, role: user.groupUser },
       process.env.SECRET_KEY
     );
-    if (user.groupUser == 1) {
-      if (await argon.verify(user.password, req.body.password)) {
-        return res.status(200).json({
-          success: true,
-          message: "Success Login Employee",
-          results: {
-            token,
-          },
-        });
-      } else {
-        return res.status(400).json({
-          success: false,
-          message: "Wrong Email or Password",
-        });
-      }
-    } else {
+    if (user.groupUser == 2) {
       if (await argon.verify(user.password, req.body.password)) {
         return res.status(200).json({
           success: true,
@@ -92,6 +67,11 @@ const loginRecruiter = async (req, res) => {
           message: "Wrong Email or Password",
         });
       }
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "This email is not registered as an recruiter",
+      });
     }
   } catch (err) {
     if (err) errorHandler(err, res);
