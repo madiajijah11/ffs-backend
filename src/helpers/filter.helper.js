@@ -1,6 +1,6 @@
 const filter = (data, sortables, pageInfoModel) => {
   data.page = parseInt(data.page) || 1;
-  data.limit = parseInt(data.limit) || 5;
+  data.limit = parseInt(data.limit) || 4;
   data.search = data.search || "";
   data.sortBy = (sortables.includes(data.sortBy) && data.sortBy) || "createdAt";
   data.sort = data.sort || "ASC";
