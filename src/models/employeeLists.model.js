@@ -8,7 +8,7 @@ exports.countAllEmployeeLists = async (filter) => {
     JOIN users u on u.id = eS."userId"
     JOIN "profileEmployee" pE on u.id = pE."userId"
     JOIN "workTimes" wT on wT.id = pE."workTimeId"
-    WHERE s.name LIKE $1`;
+    WHERE u."groupUser" = '1' AND s.name LIKE $1`;
     const values = [`%${filter.search}%`];
     const result = await dbHelper.query(sql, values);
     return result;
@@ -26,7 +26,7 @@ exports.getEmployeeLists = async (filter) => {
     JOIN users u on u.id = eS."userId"
     JOIN "profileEmployee" pE on u.id = pE."userId"
     JOIN "workTimes" wT on wT.id = pE."workTimeId"
-    WHERE s.name LIKE $1
+    WHERE u."groupUser" = '1' AND s.name LIKE $1
     GROUP BY u.id, u."fullName", pE."jobDesk", wT.name, pE.domicile, u."createdAt", u."updatedAt"
     ORDER BY "${filter.sortBy}" ${filter.sort} LIMIT $2 OFFSET $3`;
     const values = [`%${filter.search}%`, filter.limit, filter.offset];
