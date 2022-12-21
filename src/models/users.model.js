@@ -41,9 +41,9 @@ exports.getUserById = async (id) => {
 
 exports.getUserProfilEmployee = async (id) => {
   try {
-    const sql = `select u.picture, u."fullName", pe."jobDesk", wt.name as "workTime", pe."domicile", u."phoneNumber", pe.description,
+    const sql = `select u.id, u.picture, u."fullName", pe."jobDesk", wt.name as "workTime", pe."domicile", u."phoneNumber", pe.description,
     u."email", pe."instagram", pe."github", pe."gitlab", we."position", we."company", we."joinDate", we."endDate", we."jobDescription",
-    string_agg(DISTINCT(s."name"), ', ') as "skill",
+    string_to_array(trim(string_agg(DISTINCT s.name, ',')), ',' ) as skills,
     string_agg(DISTINCT(pfe."appName") , ', ') as "appName",
     string_agg(DISTINCT(pfe."repositoryLink") , ', ') as "repositoryLink",
     string_agg(DISTINCT(pfe."appPicture") , ', ') as "appPicture"
@@ -55,7 +55,7 @@ exports.getUserProfilEmployee = async (id) => {
     full join "portofolioEmployee" as  pfe on pfe."userId" = u."id"
     full join "workExperience" as we on we."userId" = u."id"
     where u."id" = $1
-    group by u.picture, u."fullName", pe."jobDesk", wt."name", pe."domicile", u."phoneNumber", pe."description",
+    group by u.id, u.picture, u."fullName", pe."jobDesk", wt."name", pe."domicile", u."phoneNumber", pe."description",
     u."email", pe."instagram", pe."github", pe."gitlab", we."position", we."company", we."joinDate", we."endDate", we."jobDescription"`;
     const user = await dbHelper.query(sql, [id]);
     return user.rows[0];
@@ -87,7 +87,6 @@ exports.getUserByEmail = async (email) => {
     if (error) throw error;
   }
 };
-
 
 exports.updateUser = async (id, data) => {
   try {
