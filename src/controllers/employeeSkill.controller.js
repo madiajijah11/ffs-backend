@@ -3,7 +3,8 @@ const {
   getSkillEmployeeById,
   createSkillEmployee,
   updateSkillEmployee,
-  deleteSkillEmployee
+  deleteSkillEmployee,
+  getEmployeeSkills
 } = require("../models/SkillEmployee.model")
 const errorHandler = require("../helpers/errorHandler.helper");
 
