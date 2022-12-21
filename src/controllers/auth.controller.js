@@ -13,7 +13,49 @@ const {
 const argon = require("argon2");
 const jwt = require("jsonwebtoken");
 
-const login = async (req, res) => {
+const loginEmployee = async (req, res) => {
+  try {
+    const user = await selectUserByEmail(req.body.email);
+    const token = jwt.sign(
+      { id: user.id, role: user.groupUser },
+      process.env.SECRET_KEY
+    );
+    if (user.groupUser == 1) {
+      if (await argon.verify(user.password, req.body.password)) {
+        return res.status(200).json({
+          success: true,
+          message: "Success Login Employee",
+          results: {
+            token,
+          },
+        });
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "Wrong Email or Password",
+        });
+      }
+    } else {
+      if (await argon.verify(user.password, req.body.password)) {
+        return res.status(200).json({
+          success: true,
+          message: "Success Login Recruiter",
+          results: {
+            token,
+          },
+        });
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "Wrong Email or Password",
+        });
+      }
+    }
+  } catch (err) {
+    if (err) errorHandler(err, res);
+  }
+};
+const loginRecruiter = async (req, res) => {
   try {
     const user = await selectUserByEmail(req.body.email);
     const token = jwt.sign(
@@ -169,7 +211,8 @@ const resetPassword = async (req, res) => {
 };
 
 module.exports = {
-  login,
+  loginEmployee,
+  loginRecruiter,
   registerEmployee,
   registerRecruiter,
   forgotPassword,

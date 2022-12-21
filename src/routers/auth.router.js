@@ -1,7 +1,8 @@
 const authRouter = require("express").Router();
 
 const {
-  login,
+  loginEmployee,
+  loginRecruiter,
   resetPassword,
   registerEmployee,
   registerRecruiter,
@@ -9,7 +10,8 @@ const {
 } = require("../controllers/auth.controller");
 const { validate, rules } = require("../middlewares/validator.middleware");
 
-authRouter.post("/login", rules("login"), validate, login);
+authRouter.post("/loginEmployee", rules("login"), validate, loginEmployee);
+authRouter.post("/loginRecruiter", rules("login"), validate, loginRecruiter);
 authRouter.post(
   "/registerEmployee",
   rules("registerEmployee"),
