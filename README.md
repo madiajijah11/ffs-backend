@@ -24,17 +24,41 @@ Backend application for job recruitment services at a particular company
 
 ## Technologies
 - [Node Js](https://nodejs.org/en/)
+- [Express Js](https://expressjs.com/)
 - [Postman](https://www.postman.com/)
 - [Postgree SQL](https://www.postgresql.org/)
 - [Supabase](https://supabase.com/)
 
 
 ## Run App
-1. Clone this Repositories
-2. Type `npm install` in tour terminal
-3. Set up your ENV
-4. Open Postman
-5. You also can access app in http://localhost:8888/
+-   Requirement:
+
+    -   Install [Node.js](https://nodejs.org)
+    -   Recommended to use [NPM](https://www.npmjs.com/)
+
+-   Clone the repo.
+
+    ```bash
+    git clone https://github.com/madiajijah11/ffs-backend.git
+    ```
+
+    ```bash
+    cd ffs-backend
+    ```
+
+-   Install the dependencies.
+
+    ```bash
+    npm install
+    ```
+
+    ### Development
+
+    Run the development server and open [http://localhost:8888](http://localhost:8888)
+
+    ```bash
+    npm run dev
+    ```
 
 ## ENV Example
 ### Database URL for postgresql connection string
