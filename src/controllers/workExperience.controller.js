@@ -36,11 +36,15 @@ exports.createWorkExperience = async (req, res) => {
 exports.getWorkExperienceById = async (req, res) => {
   try {
     const displayAllWorkExperienceById = await getWorkExperienceById(req.params.id);
-    res.status(200).json({
-      success: true,
-      message: "Work Experience retrieved successfully",
-      results: displayAllWorkExperienceById,
-    });
+    if (req.params.id !== displayAllWorkExperienceById.id) {
+      return errorHandler(error, res)
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Work Experience retrieved successfully",
+        results: displayAllWorkExperienceById,
+      });
+    }
   } catch (error) {
     if (error) return errorHandler(error, res);
   }
@@ -67,13 +71,16 @@ exports.updateWorkExperience = async (req, res) => {
       req.params.id,
       req.body
     );
-    res.status(200).json({
-      success: true,
-      message: "Work Experience updated successfully",
-      results: updateWorkExperiences,
-    });
+    if (req.params.id !== updateWorkExperiences.id) {
+      return errorHandler(error, res)
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Work Experience updated successfully",
+        results: updateWorkExperiences,
+      });
+    }
   } catch (error) {
-    console.log(error)
     if (error) return errorHandler(error, res);
   }
 };
@@ -81,11 +88,15 @@ exports.updateWorkExperience = async (req, res) => {
 exports.deleteWorkExperience = async (req, res) => {
   try {
     const deleteWorkExperiences = await deleteWorkExperience(req.params.id);
-    res.status(200).json({
-      success: true,
-      message: "Work Experience deleted successfully",
-      results: deleteWorkExperiences,
-    });
+    if (req.params.id !== deleteWorkExperiences.id) {
+      return errorHandler(error, res)
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Work Experience deleted successfully",
+        results: deleteWorkExperiences,
+      });
+    }
   } catch (error) {
     if (error) return errorHandler(error, res);
   }

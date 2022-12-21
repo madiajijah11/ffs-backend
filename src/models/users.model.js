@@ -12,7 +12,7 @@ exports.getUsers = async () => {
 
 exports.createUser = async (data) => {
   try {
-    const sql = `INSERT INTO users ("fullName", email, "phoneNumber", password, "groupUser", "companyName", "companyField") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const sql = `INSERT INTO users ("fullName", email, "phoneNumber", password, "groupUser", "companyName", "companyField", "picture") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
     const values = [
       data.fullName,
       data.email,
@@ -41,21 +41,21 @@ exports.getUserById = async (id) => {
 
 exports.getUserProfilEmployee = async (id) => {
   try {
-    const sql = `select u."fullName", pe."jobDesk", wt.name as "workTime", pe."domicile", u."phoneNumber", pe.description,
+    const sql = `select u.id, u.picture, u."fullName", pe."jobDesk", wt.name as "workTime", pe."domicile", u."phoneNumber", pe.description,
     u."email", pe."instagram", pe."github", pe."gitlab", we."position", we."company", we."joinDate", we."endDate", we."jobDescription",
-    string_agg(DISTINCT(s."name"), ', ') as "skill",
+    string_to_array(trim(string_agg(DISTINCT s.name, ',')), ',' ) as skills,
     string_agg(DISTINCT(pfe."appName") , ', ') as "appName",
     string_agg(DISTINCT(pfe."repositoryLink") , ', ') as "repositoryLink",
     string_agg(DISTINCT(pfe."appPicture") , ', ') as "appPicture"
     from "users" as u
-    join "profileEmployee" as pe on pe."userId" = u."id"
-    join "workTimes" as wt on wt."id" = pe."workTimeId"
-    join "employeeSkill" as es on es."userId" = u."id"
-    join "skills" as s on s."id" = es."skillId"
-    join "portofolioEmployee" as  pfe on pfe."userId" = u."id"
-    join "workExperience" as we on we."userId" = u."id"
+    full join "profileEmployee" as pe on pe."userId" = u."id"
+    full join "workTimes" as wt on wt."id" = pe."workTimeId"
+    full join "employeeSkill" as es on es."userId" = u."id"
+    full join "skills" as s on s."id" = es."skillId"
+    full join "portofolioEmployee" as  pfe on pfe."userId" = u."id"
+    full join "workExperience" as we on we."userId" = u."id"
     where u."id" = $1
-    group by u."fullName", pe."jobDesk", wt."name", pe."domicile", u."phoneNumber", pe."description",
+    group by u.id, u.picture, u."fullName", pe."jobDesk", wt."name", pe."domicile", u."phoneNumber", pe."description",
     u."email", pe."instagram", pe."github", pe."gitlab", we."position", we."company", we."joinDate", we."endDate", we."jobDescription"`;
     const user = await dbHelper.query(sql, [id]);
     return user.rows[0];
@@ -66,10 +66,10 @@ exports.getUserProfilEmployee = async (id) => {
 
 exports.getUserProfilRecruiter = async (id) => {
   try {
-    const sql = `select u."fullName", pe."domicile", pe."description", pe."instagram", pe."linkedIn", u."phoneNumber",
+    const sql = `select u.picture, u."fullName", pe."domicile", pe."description", pe."instagram", pe."linkedIn", u."phoneNumber",
     u."email", u."companyName", u."companyField"
     from "users" as u
-    join "profileCompany" as pe on pe."userId" = u."id"
+    full join "profileCompany" as pe on pe."userId" = u."id"
     where u."id" = $1`;
     const user = await dbHelper.query(sql, [id]);
     return user.rows[0];
@@ -87,7 +87,6 @@ exports.getUserByEmail = async (email) => {
     if (error) throw error;
   }
 };
-
 
 exports.updateUser = async (id, data) => {
   try {

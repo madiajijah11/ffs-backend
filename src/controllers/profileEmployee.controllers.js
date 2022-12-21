@@ -4,6 +4,7 @@ const {
   getProfileEmployeeById,
   updateProfileEmployee,
   deleteProfileEmployee,
+  getProfileEmployee
 } = require("../models/profileEmployee.model");
 const errorHandler = require("../helpers/errorHandler.helper");
 
@@ -68,6 +69,20 @@ exports.deleteProfileEmployee = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Profile Employee deleted successfully",
+      results: profileEmployee,
+    });
+  } catch (error) {
+    if (error) return errorHandler(error, res);
+  }
+};
+
+
+exports.getProfileEmployee = async (req, res) => {
+  try {
+    const profileEmployee = await getProfileEmployee(req.params.id);
+    res.status(200).json({
+      success: true,
+      message: "Profile Employee retrieved successfully",
       results: profileEmployee,
     });
   } catch (error) {

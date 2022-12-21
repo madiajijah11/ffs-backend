@@ -7,7 +7,6 @@ const {
   getUserProfilEmployee,
   getUserProfilRecruiter,
 } = require("../models/users.model");
-const bcrypt = require("bcrypt");
 const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getUsers = async (req, res) => {

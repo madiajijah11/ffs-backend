@@ -26,9 +26,11 @@ exports.createSkillEmployee = async (data) => {
 
 exports.getSkillEmployeeById = async (id) => {
   try {
-    const sql = `SELECT * FROM "employeeSkill" WHERE id = $1`;
+    const sql = `SELECT es.id, es."userId", es."skillId", s.name FROM "employeeSkill" es
+    JOIN skills s ON es."skillId" = s.id
+    WHERE es."userId" = $1`;
     const skill = await dbHelper.query(sql, [id]);
-    return skill.rows[0];
+    return skill.rows;
   } catch (error) {
     if (error) throw error;
   }

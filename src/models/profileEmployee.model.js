@@ -41,7 +41,7 @@ exports.getProfileEmployeeById = async (id) => {
 
 exports.updateProfileEmployee = async (id, data) => {
   try {
-    const sql = `UPDATE "profileEmployee" SET "userId" = COALESCE(NULLIF($1, '')::BIGINT, "userId"), "jobDesk" = COALESCE(NULLIF($2, ''), "jobDesk"), "domicile" = COALESCE(NULLIF($3, ''), "domicile"), "instagram" = COALESCE(NULLIF($4, ''), "instagram"), "github" = COALESCE(NULLIF($5, ''), "github"), "gitlab" = COALESCE(NULLIF($6, ''), "gitlab"), "description" = COALESCE(NULLIF($7, ''), "description") WHERE id = $8 RETURNING *`;
+    const sql = `UPDATE "profileEmployee" SET "userId" = COALESCE(NULLIF($1, '')::BIGINT, "userId"), "jobDesk" = COALESCE(NULLIF($2, ''), "jobDesk"), "domicile" = COALESCE(NULLIF($3, ''), "domicile"), "instagram" = COALESCE(NULLIF($4, ''), "instagram"), "github" = COALESCE(NULLIF($5, ''), "github"), "gitlab" = COALESCE(NULLIF($6, ''), "gitlab"), "description" = COALESCE(NULLIF($7, ''), "description") WHERE "userId" = $8 RETURNING *`;
     const values = [
       data.userId,
       data.jobDesk,
@@ -62,6 +62,20 @@ exports.updateProfileEmployee = async (id, data) => {
 exports.deleteProfileEmployee = async (id) => {
   try {
     const sql = `DELETE FROM "profileEmployee" WHERE id = $1 RETURNING *`;
+    const newProfile = await dbHelper.query(sql, [id]);
+    return newProfile.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
+
+exports.getProfileEmployee = async (id) => {
+  try {
+    const sql = `SELECT u.picture, u.avatar, u."fullName", u."phoneNumber", pE."jobDesk", pE.domicile, pE.instagram, pE.github, pE.gitlab, pE.description, wT.name FROM users u
+    JOIN "profileEmployee" pE ON pE."userId" = u.id
+    JOIN "workTimes" wT ON wT.id = pE."workTimeId"
+    WHERE u.id = $1`;
     const newProfile = await dbHelper.query(sql, [id]);
     return newProfile.rows[0];
   } catch (error) {
