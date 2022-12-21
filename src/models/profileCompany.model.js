@@ -39,6 +39,16 @@ exports.getProfileCompanyById = async (id) => {
   }
 };
 
+exports.getProfileCompanyByUserId = async (id) => {
+  try {
+    const sql = `SELECT * FROM "profileCompany" WHERE "userId" = $1`;
+    const newData = await dbHelper.query(sql, [id]);
+    return newData.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
 exports.updateProfileCompany = async (id, data) => {
   try {
     const sql = `UPDATE "profileCompany" SET "userId" = COALESCE(NULLIF($1, '')::BIGINT, "userId"), "domicile" = COALESCE(NULLIF($2, ''), "domicile"), "description" = COALESCE(NULLIF($3, ''), "description"), "instagram" = COALESCE(NULLIF($4, ''), "instagram"), "linkedIn" = COALESCE(NULLIF($5, ''), "linkedIn") WHERE id = $6 RETURNING *`;

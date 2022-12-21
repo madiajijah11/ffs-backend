@@ -19,8 +19,9 @@ exports.createWorkExperience = async (data) => {
       data.company,
       data.joinDate,
       data.endDate,
-      data.jobDescription
+      data.jobDescription,
     ];
+    console.log(values);
     const newData = await dbHelper.query(sql, values);
     return newData.rows[0];
   } catch (error) {
@@ -38,6 +39,16 @@ exports.getWorkExperienceById = async (id) => {
   }
 };
 
+exports.getWorkExperienceByUserId = async (id) => {
+  try {
+    const sql = `SELECT * FROM "workExperience" WHERE "userId" = $1`;
+    const newData = await dbHelper.query(sql, [id]);
+    return newData.rows[0];
+  } catch (error) {
+    if (error) throw error;
+  }
+};
+
 exports.updateWorkExperience = async (id, data) => {
   try {
     const sql = `UPDATE "workExperience" SET "userId" = COALESCE(NULLIF($2, '')::BIGINT, "userId"), "position" = COALESCE(NULLIF($3, ''), "position"), "company" = COALESCE(NULLIF($4, ''), "company"), "joinDate" = COALESCE(NULLIF($5, '')::TIMESTAMPTZ, "joinDate"), "endDate" = COALESCE(NULLIF($6, '')::TIMESTAMPTZ, "endDate") WHERE id = $1 RETURNING *`;
@@ -47,15 +58,14 @@ exports.updateWorkExperience = async (id, data) => {
       data.position,
       data.company,
       data.joinDate,
-      data.endDate
+      data.endDate,
     ];
-    const newData = await dbHelper.query(sql, values)
-    return newData.rows[0]
+    const newData = await dbHelper.query(sql, values);
+    return newData.rows[0];
   } catch (error) {
     if (error) throw error;
   }
 };
-
 
 exports.deleteWorkExperience = async (id) => {
   try {
