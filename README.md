@@ -82,5 +82,8 @@ PORT =
 |/users/:id|PATCH|update user data by id|
 |/profileEmployee/:id|PATCH|update jobseeker data by id|
 |/profileCompany/:id|PATCH|update company data by id|
+|/portofolioEmployee|POST|add portofolio jobseeker|
+|/skill|POST|add skill jobseeker|
+|/workExperience|POST|add work experience jobseeker|
 
 
