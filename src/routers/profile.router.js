@@ -1,6 +1,10 @@
 const profileRoutes = require("express").Router();
-const { userProfile, updateUserProfile } = require("../controllers/profile.controller");
+const {
+  userProfileEmployee,
+  userProfileRecruiter,
+} = require("../controllers/profile.controller");
 
-profileRoutes.get("/", userProfile);
+profileRoutes.get("/employee", userProfileEmployee);
+profileRoutes.get("/recruiter", userProfileRecruiter);
 
 module.exports = profileRoutes;
