@@ -36,6 +36,7 @@ Backend application Fazz-Fullstack Hire Job App for Repo **ffs-frontend**
 - [Postman](https://www.postman.com/)
 - [Postgree SQL](https://www.postgresql.org/)
 - [Supabase](https://supabase.com/)
+- [Cyclic.sh](https://www.cyclic.sh/)
 
 
 ## Run App
