@@ -1,6 +1,14 @@
-# Backend FazzFullStack
+<div align="center">
+  <br>
+  <h1><strong>Backend Fazz-Fullstack Hire Job App</strong></h1
+  <br>
+
+  <!-- [**View the Web App**](https://exceltodynamodbjson.vercel.app) -->
+</div>
+
+
 ##  Description
-Backend application for job recruitment services at a particular company
+Backend application Fazz-Fullstack Hire Job App for Repo **ffs-frontend**
 
 ## Built With
 ![Express](https://img.shields.io/badge/Express-v4.18.2-pink?style=flat)
