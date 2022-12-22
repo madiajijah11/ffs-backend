@@ -73,7 +73,8 @@ PORT =
 ## Main End Point
 |url|method|desc|
 |---|------|----|
-|/auth/login|POST|login user|
+|/auth/loginEmployee|POST|login user jobseeker|
+|/auth/loginRecruiter|POST|login user recruiter|
 |/auth/registerEmployee|POST|register new user jobseeker|
 |/auth/regiterRecruiter|POST|register new user recruiter|
 |/auth/forgotPassword|POST|if user forgot password / account recovery|
