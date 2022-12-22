@@ -4,8 +4,7 @@ const {
   createSkillEmployee,
   updateSkillEmployee,
   deleteSkillEmployee,
-  getEmployeeSkills
-} = require("../models/SkillEmployee.model")
+} = require("../models/skillEmployee.model")
 const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getSkillEmployees = async(req ,res )=>{
