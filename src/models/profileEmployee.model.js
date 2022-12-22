@@ -41,7 +41,7 @@ exports.getProfileEmployeeById = async (id) => {
 
 exports.updateProfileEmployee = async (id, data) => {
   try {
-    const sql = `UPDATE "profileEmployee" SET "userId" = COALESCE(NULLIF($1, '')::BIGINT, "userId"), "jobDesk" = COALESCE(NULLIF($2, ''), "jobDesk"), "domicile" = COALESCE(NULLIF($3, ''), "domicile"), "instagram" = COALESCE(NULLIF($4, ''), "instagram"), "github" = COALESCE(NULLIF($5, ''), "github"), "gitlab" = COALESCE(NULLIF($6, ''), "gitlab"), "description" = COALESCE(NULLIF($7, ''), "description") WHERE "userId" = $8 RETURNING *`;
+    const sql = `UPDATE "profileEmployee" SET "userId" = COALESCE(NULLIF($1, '')::BIGINT, "userId"), "jobDesk" = COALESCE(NULLIF($2, ''), "jobDesk"), "domicile" = COALESCE(NULLIF($3, ''), "domicile"), "instagram" = COALESCE(NULLIF($4, ''), "instagram"), "github" = COALESCE(NULLIF($5, ''), "github"), "gitlab" = COALESCE(NULLIF($6, ''), "gitlab"), "description" = COALESCE(NULLIF($7, ''),"description"), "workTimeId" = COALESCE(NULLIF($8, '')::BIGINT, "workTimeId") WHERE "userId" = $9 RETURNING *`;
     const values = [
       data.userId,
       data.jobDesk,
@@ -50,6 +50,7 @@ exports.updateProfileEmployee = async (id, data) => {
       data.github,
       data.gitlab,
       data.description,
+      data.workTimeId,
       id,
     ];
     const newProfile = await dbHelper.query(sql, values);
