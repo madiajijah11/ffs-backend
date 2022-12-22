@@ -21,6 +21,7 @@ exports.createUser = async (data) => {
       2,
       data.companyName,
       data.companyField,
+      data.picture
     ];
     const newUser = await dbHelper.query(sql, values);
     return newUser.rows[0];
