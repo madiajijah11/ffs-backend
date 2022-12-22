@@ -3,7 +3,8 @@ const {
   createPortofolioEmployee,
   getPortofolioEmployeById,
   updatePortofolioEmployee,
-  deletePortofolioEmployee} = require('../models/portofolioEmployee.model')
+  deletePortofolioEmployee,
+  getPortofolioEmployeByUserId} = require('../models/portofolioEmployee.model')
 const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getAllPortofolioEmployee = async (req, res) => {

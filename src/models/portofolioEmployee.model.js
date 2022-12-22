@@ -28,9 +28,9 @@ exports.createPortofolioEmployee = async (data) => {
 
 exports.getPortofolioEmployeById = async (id) => {
   try {
-    const sql = `SELECT * FROM "portofolioEmployee" WHERE id = $1`;
+    const sql = `SELECT * FROM "portofolioEmployee" WHERE "userId" = $1`;
     const portofolioEmployee = await dbHelper.query(sql, [id]);
-    return portofolioEmployee.rows[0];
+    return portofolioEmployee.rows;
   } catch (error) {
     if (error) throw error;
   }

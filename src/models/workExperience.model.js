@@ -31,9 +31,9 @@ exports.createWorkExperience = async (data) => {
 
 exports.getWorkExperienceById = async (id) => {
   try {
-    const sql = `SELECT * FROM "workExperience" WHERE id = $1`;
+    const sql = `SELECT * FROM "workExperience" WHERE "userId" = $1`;
     const newData = await dbHelper.query(sql, [id]);
-    return newData.rows[0];
+    return newData.rows;
   } catch (error) {
     if (error) throw error;
   }

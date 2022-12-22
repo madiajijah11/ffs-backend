@@ -4,7 +4,8 @@ const {
   createPortofolioEmployee,
   getPortofolioEmployeeById,
   updatePortofolioEmployee,
-  deletePortofolioEmployee} = require('../controllers/portofolioEmployee.controller')
+  deletePortofolioEmployee
+} = require('../controllers/portofolioEmployee.controller')
 
 portofolioEmployeeRouter.get("/", getAllPortofolioEmployee);
 portofolioEmployeeRouter.post("/", createPortofolioEmployee);
