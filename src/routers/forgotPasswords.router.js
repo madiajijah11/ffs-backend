@@ -5,7 +5,7 @@ const {
   getForgotPasswordById,
   updateForgotPassword,
   deleteForgotPassword,
-} = require("../controllers/ForgotPasswords.controllers");
+} = require("../controllers/forgotPasswords.controllers");
 
 forgotPassword.get("/", getAllForgotPassword);
 forgotPassword.get("/:id", getForgotPasswordById);

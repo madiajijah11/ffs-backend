@@ -1,6 +1,14 @@
-# Backend FazzFullStack
+<div align="center">
+  <br>
+  <h1><strong>Backend Fazz-Fullstack Hire Job App</strong></h1
+  <br>
+
+  <!-- [**View the Web App**](https://exceltodynamodbjson.vercel.app) -->
+</div>
+
+
 ##  Description
-Backend application for job recruitment services at a particular company
+Backend application Fazz-Fullstack Hire Job App for Repo **ffs-frontend**
 
 ## Built With
 ![Express](https://img.shields.io/badge/Express-v4.18.2-pink?style=flat)
@@ -28,6 +36,7 @@ Backend application for job recruitment services at a particular company
 - [Postman](https://www.postman.com/)
 - [Postgree SQL](https://www.postgresql.org/)
 - [Supabase](https://supabase.com/)
+- [Cyclic.sh](https://www.cyclic.sh/)
 
 
 ## Run App
@@ -53,12 +62,16 @@ Backend application for job recruitment services at a particular company
     ```
 
     ### Development
-
-    Run the development server and open [http://localhost:8888](http://localhost:8888)
-
-    ```bash
+    Set up your ENV
+    
+     ```bash
     npm run dev
     ```
+    
+    Open Postman
+    Run the development server and open [http://localhost:8888](http://localhost:8888)
+   
+   
 
 ## ENV Example
 ### Database URL for postgresql connection string
@@ -73,7 +86,8 @@ PORT =
 ## Main End Point
 |url|method|desc|
 |---|------|----|
-|/auth/login|POST|login user|
+|/auth/loginEmployee|POST|login user jobseeker|
+|/auth/loginRecruiter|POST|login user recruiter|
 |/auth/registerEmployee|POST|register new user jobseeker|
 |/auth/regiterRecruiter|POST|register new user recruiter|
 |/auth/forgotPassword|POST|if user forgot password / account recovery|
