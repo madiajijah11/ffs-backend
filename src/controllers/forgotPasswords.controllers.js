@@ -4,7 +4,7 @@ const {
   getForgotPasswordById,
   updateForgotPassword,
   deleteForgotPassword,
-} = require("../models/ForgotPasswords.model");
+} = require("../models/forgotPasswords.model");
 
 const modelUser = require("../models/users.model")
 
