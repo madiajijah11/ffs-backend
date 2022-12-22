@@ -53,12 +53,16 @@ Backend application for job recruitment services at a particular company
     ```
 
     ### Development
-
-    Run the development server and open [http://localhost:8888](http://localhost:8888)
-
-    ```bash
+    Set up your ENV
+    
+     ```bash
     npm run dev
     ```
+    
+    Open Postman
+    Run the development server and open [http://localhost:8888](http://localhost:8888)
+   
+   
 
 ## ENV Example
 ### Database URL for postgresql connection string
