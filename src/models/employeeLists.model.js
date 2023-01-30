@@ -1,4 +1,4 @@
-const dbHelper = require("../helpers/db.helper");
+const dbHelper = require('../helpers/db.helper')
 
 exports.countAllEmployeeLists = async (filter) => {
   try {
@@ -8,14 +8,14 @@ exports.countAllEmployeeLists = async (filter) => {
     FULL JOIN "workTimes" wT on wT.id = pE."workTimeId"
     FULL JOIN "employeeSkill" eS on u.id = eS."userId"
     FULL JOIN skills s on s.id = eS."skillId"
-    WHERE u."groupUser" = '1' AND s.name LIKE $1`;
-    const values = [`%${filter.search}%`];
-    const result = await dbHelper.query(sql, values);
-    return result;
+    WHERE u."groupUser" = '1' AND s.name LIKE $1`
+    const values = [`%${filter.search}%`]
+    const result = await dbHelper.query(sql, values)
+    return result
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error
   }
-};
+}
 
 exports.getEmployeeLists = async (filter) => {
   try {
@@ -34,11 +34,11 @@ exports.getEmployeeLists = async (filter) => {
     FULL JOIN skills s on s.id = eS."skillId"
     WHERE u."groupUser" = '1' AND s.name LIKE $1
     GROUP BY u.id, u."fullName", pE."jobDesk", wT.name, pE.domicile, u."createdAt", u."updatedAt"
-    ORDER BY "${filter.sortBy}" ${filter.sort} LIMIT $2 OFFSET $3`;
-    const values = [`%${filter.search}%`, filter.limit, filter.offset];
-    const result = await dbHelper.query(sql, values);
-    return result;
+    ORDER BY "${filter.sortBy}" ${filter.sort} LIMIT $2 OFFSET $3`
+    const values = [`%${filter.search}%`, filter.limit, filter.offset]
+    const result = await dbHelper.query(sql, values)
+    return result
   } catch (error) {
-    if (error) throw error;
+    if (error) throw error
   }
-};
+}

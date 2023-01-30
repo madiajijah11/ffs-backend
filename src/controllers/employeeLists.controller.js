@@ -1,26 +1,26 @@
-const errorHandler = require("../helpers/errorHandler.helper");
+const errorHandler = require('../helpers/errorHandler.helper')
 const {
   getEmployeeLists,
-  countAllEmployeeLists,
-} = require("../models/employeeLists.model");
-const filter = require("../helpers/filter.helper");
+  countAllEmployeeLists
+} = require('../models/employeeLists.model')
+const filter = require('../helpers/filter.helper')
 
 exports.getEmployeeLists = async (req, res) => {
-  const sortables = ["skill", "workTime", "createdAt", "updatedAt"];
+  const sortables = ['skill', 'workTime', 'createdAt', 'updatedAt']
   try {
     const { params, pageInfo } = filter(
       req.query,
       sortables,
       countAllEmployeeLists
-    );
-    const result = await getEmployeeLists(params);
+    )
+    const result = await getEmployeeLists(params)
     return res.status(200).json({
       success: true,
-      message: "Employee lists retrieved successfully",
+      message: 'Employee lists retrieved successfully',
       pageInfo,
-      results: result.rows,
-    });
+      results: result.rows
+    })
   } catch (error) {
-    if (error) return errorHandler(error, res);
+    if (error) return errorHandler(error, res)
   }
-};
+}

@@ -1,35 +1,42 @@
 {
-	"name": "ffs-backend",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"dev": "nodemon index.js",
-		"start": "node index.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/madiajijah11/ffs-backend.git"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/madiajijah11/ffs-backend/issues"
-	},
-	"homepage": "https://github.com/madiajijah11/ffs-backend#readme",
-	"dependencies": {
-		"argon2": "^0.30.2",
-		"cors": "^2.8.5",
-		"dotenv": "^16.0.3",
-		"express": "^4.18.2",
-		"express-validator": "^6.14.2",
-		"jsonwebtoken": "^8.5.1",
-		"morgan": "^1.10.0",
-		"multer": "^1.4.5-lts.1",
-		"pg": "^8.8.0"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.20"
-	}
+  "name": "ffs-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madiajijah11/ffs-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madiajijah11/ffs-backend/issues"
+  },
+  "homepage": "https://github.com/madiajijah11/ffs-backend#readme",
+  "dependencies": {
+    "argon2": "^0.30.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^2.0.20"
+  }
 }

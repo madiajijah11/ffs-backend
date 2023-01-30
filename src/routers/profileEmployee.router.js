@@ -1,4 +1,4 @@
-const profileEmployee = require("express").Router();
+const profileEmployee = require('express').Router()
 const {
   getAllProfileEmployee,
   createProfileEmployee,
@@ -6,13 +6,13 @@ const {
   updateProfileEmployee,
   deleteProfileEmployee,
   getProfileEmployee
-} = require("../controllers/profileEmployee.controllers");
+} = require('../controllers/profileEmployee.controllers')
 
-profileEmployee.get("/", getAllProfileEmployee);
-profileEmployee.get("/:id", getProfileEmployeeById);
-profileEmployee.get("/update/:id", getProfileEmployee);
-profileEmployee.post("/", createProfileEmployee);
-profileEmployee.patch("/:id", updateProfileEmployee);
-profileEmployee.delete("/:id", deleteProfileEmployee);
+profileEmployee.get('/', getAllProfileEmployee)
+profileEmployee.get('/:id', getProfileEmployeeById)
+profileEmployee.get('/update/:id', getProfileEmployee)
+profileEmployee.post('/', createProfileEmployee)
+profileEmployee.patch('/:id', updateProfileEmployee)
+profileEmployee.delete('/:id', deleteProfileEmployee)
 
-module.exports = profileEmployee;
+module.exports = profileEmployee

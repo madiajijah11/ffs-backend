@@ -1,8 +1,8 @@
-const employeeLists = require("express").Router();
+const employeeLists = require('express').Router()
 const {
-  getEmployeeLists,
-} = require("../controllers/employeeLists.controller");
+  getEmployeeLists
+} = require('../controllers/employeeLists.controller')
 
-employeeLists.get("/", getEmployeeLists);
+employeeLists.get('/', getEmployeeLists)
 
-module.exports = employeeLists;
+module.exports = employeeLists
