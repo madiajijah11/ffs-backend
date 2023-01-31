@@ -20,7 +20,7 @@ const loginEmployee = async (req, res) => {
       { id: user.id, role: user.groupUser },
       process.env.SECRET_KEY
     )
-    if (user.groupUser === 1) {
+    if (user.groupUser === '1') {
       if (await argon.verify(user.password, req.body.password)) {
         return res.status(200).json({
           success: true,
@@ -52,7 +52,7 @@ const loginRecruiter = async (req, res) => {
       { id: user.id, role: user.groupUser },
       process.env.SECRET_KEY
     )
-    if (user.groupUser === 2) {
+    if (user.groupUser === '2') {
       if (await argon.verify(user.password, req.body.password)) {
         return res.status(200).json({
           success: true,
