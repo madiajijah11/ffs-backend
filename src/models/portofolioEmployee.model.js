@@ -12,17 +12,18 @@ exports.getAllPortofolioEmployee = async () => {
 
 exports.createPortofolioEmployee = async (data) => {
   try {
-    const sql = 'INSERT INTO "portofolioEmployee" ("appName", "repositoryLink", "appPicture", "userId") VALUES ($1, $2, $3, $4) RETURNING *'
+    const sql = 'INSERT INTO "portofolioEmployee" ("appName", "repositoryLink", "picture", "userId") VALUES ($1, $2, $3, $4) RETURNING *'
     const values = [
       data.appName,
       data.repositoryLink,
-      data.appPicture,
+      data.picture,
       data.userId
     ]
     const newPortofolioEmployee = await dbHelper.query(sql, values)
     return newPortofolioEmployee.rows[0]
   } catch (error) {
-    if (error) throw error
+    console.log(error)
+    // if (error) throw error
   }
 }
 
@@ -50,13 +51,13 @@ exports.updatePortofolioEmployee = async (id, data) => {
   try {
     const sql = `UPDATE "portofolioEmployee" SET "appName" = COALESCE(NULLIF($1, ''), "appName"),
     "repositoryLink" = COALESCE(NULLIF($2, ''), "repositoryLink"),
-    "appPicture" = COALESCE(NULLIF($3, ''), "appPicture"),
+    "picture" = COALESCE(NULLIF($3, ''), "picture"),
     "userId" = COALESCE(NULLIF($4, '')::BIGINT, "userId")
     WHERE id = $5 RETURNING *`
     const values = [
       data.appName,
       data.repositoryLink,
-      data.appPicture,
+      data.picture,
       data.userId,
       id
     ]
