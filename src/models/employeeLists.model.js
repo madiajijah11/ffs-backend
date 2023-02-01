@@ -21,7 +21,7 @@ exports.getEmployeeLists = async filter => {
   try {
     const sql = `SELECT u.id,
     u."fullName",
-    u.picture
+    u.picture,
     pE."jobDesk",
     wT.name as "workTime",
     pE.domicile,
