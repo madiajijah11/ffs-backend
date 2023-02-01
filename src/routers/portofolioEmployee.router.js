@@ -6,6 +6,7 @@ const {
   updatePortofolioEmployee,
   deletePortofolioEmployee
 } = require('../controllers/portofolioEmployee.controller')
+const {} = require('../middlewares/upload.muddleware')
 
 portofolioEmployeeRouter.get('/', getAllPortofolioEmployee)
 portofolioEmployeeRouter.post('/', createPortofolioEmployee)
