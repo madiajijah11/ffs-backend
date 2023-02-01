@@ -1,4 +1,5 @@
 const errorHandler = require('../helpers/errorHandler.helper')
+const { transport, mailOptions } = require('../helpers/mail.helper')
 const {
   selectUserByEmail,
   updateUser,
@@ -142,11 +143,13 @@ const forgotPassword = async (req, res) => {
     const { email } = req.body
     const users = await selectUserByEmail(email)
     if (users) {
+      const code = Math.ceil(Math.random() * 90000 + 10000)
       const data = {
         email,
         userId: users.id,
-        code: Math.ceil(Math.random() * 90000 + 10000)
+        code
       }
+      await transport.sendMail(mailOptions(email, code))
       await createForgotPassword(data)
       res.status(200).json({
         success: true,
