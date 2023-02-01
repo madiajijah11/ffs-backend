@@ -12,6 +12,7 @@ routers.use('/forgotPassword', require('./forgotPasswords.router'))
 routers.use('/employeeLists', require('./employeeLists.router'))
 routers.use('/portfolioEmployee', require('./portofolioEmployee.router'))
 routers.use('/profile', require('./profile.router'))
+routers.use('/message', require('./message.router'))
 
 routers.use('/auth', require('./auth.router'))
 
