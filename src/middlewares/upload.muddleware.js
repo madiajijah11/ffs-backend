@@ -1,4 +1,4 @@
-const multer = require('multer')
+const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const path = require("path");
@@ -21,7 +21,6 @@ const storage = new CloudinaryStorage({
     },
   },
 });
-
 
 const upload = multer({
   storage,
@@ -50,4 +49,17 @@ const uploadMiddleware = (req, res, next) => {
     next();
   });
 };
-module.exports = { uploadMiddleware, cloudinary };
+
+const uploadPortofolio = upload.single("appPicture");
+const uploadPortfolio = (req, res, next) => {
+  uploadPortofolio(req, res, (error) => {
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+    next();
+  });
+};
+module.exports = { uploadPortfolio, uploadMiddleware, cloudinary };

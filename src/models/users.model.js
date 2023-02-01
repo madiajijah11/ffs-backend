@@ -48,7 +48,7 @@ exports.getUserProfilEmployee = async id => {
     string_to_array(trim(string_agg(DISTINCT s.name, ',')), ',' ) as skills,
     string_agg(DISTINCT(pfe."appName") , ', ') as "appName",
     string_agg(DISTINCT(pfe."repositoryLink") , ', ') as "repositoryLink",
-    string_agg(DISTINCT(pfe."picture") , ', ') as "projectPicture"
+    string_agg(DISTINCT(pfe."appPicture") , ', ') as "projectPicture"
     from "users" as u
     full join "profileEmployee" as pe on pe."userId" = u."id"
     full join "workTimes" as wt on wt."id" = pe."workTimeId"

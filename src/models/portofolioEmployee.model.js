@@ -12,11 +12,11 @@ exports.getAllPortofolioEmployee = async () => {
 
 exports.createPortofolioEmployee = async (data) => {
   try {
-    const sql = 'INSERT INTO "portofolioEmployee" ("appName", "repositoryLink", "picture", "userId") VALUES ($1, $2, $3, $4) RETURNING *'
+    const sql = 'INSERT INTO "portofolioEmployee" ("appName", "repositoryLink", "appPicture", "userId") VALUES ($1, $2, $3, $4) RETURNING *'
     const values = [
       data.appName,
       data.repositoryLink,
-      data.picture,
+      data.appPicture,
       data.userId
     ]
     const newPortofolioEmployee = await dbHelper.query(sql, values)

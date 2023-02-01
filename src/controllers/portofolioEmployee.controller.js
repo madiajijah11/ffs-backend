@@ -22,8 +22,7 @@ exports.getAllPortofolioEmployee = async (req, res) => {
 
 exports.createPortofolioEmployee = async (req, res) => {
   try {
-    console.log(req)
-    req.body.picture = req.file.path
+    req.body.appPicture = req.file.path
     const users = await createPortofolioEmployee(req.body)
     res.status(200).json({
       success: true,
