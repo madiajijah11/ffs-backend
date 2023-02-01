@@ -22,6 +22,7 @@ exports.getAllPortofolioEmployee = async (req, res) => {
 
 exports.createPortofolioEmployee = async (req, res) => {
   try {
+    console.log(req.file)
     const users = await createPortofolioEmployee(req.body)
     res.status(200).json({
       success: true,
