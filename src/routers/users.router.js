@@ -7,8 +7,7 @@ const {
   updateUser,
   deleteUser
 } = require('../controllers/users.controllers')
-const {uploadMiddleware} = require('../middlewares/upload.muddleware')
-
+const { uploadMiddleware } = require('../middlewares/upload.muddleware')
 
 usersRouter.get('/', getUsers)
 usersRouter.get('/profil/:id', getUserProfilRoleById)
