@@ -107,6 +107,7 @@ const registerEmployee = async (req, res) => {
       }
     })
   } catch (error) {
+    console.log(error)
     if (error) errorHandler(error, res)
   }
 }
