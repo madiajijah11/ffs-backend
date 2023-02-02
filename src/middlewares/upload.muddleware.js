@@ -26,6 +26,7 @@ const upload = multer({
   storage,
   limits: { fileSize: 5000000 }, //5MB
   fileFilter: (req, file, callback) => {
+    console.log('ini file  ' + file)
     const format = ["jpg", "png", "jpeg"];
     const extension = file.originalname.split(".");
     const cekFormatFile = format.includes(extension[extension.length - 1]);
@@ -37,9 +38,10 @@ const upload = multer({
   },
 });
 
-const uploadFile = upload.single("picture");
+const uploadFile = upload.single("picture"); // upload (a , b, c)
 const uploadMiddleware = (req, res, next) => {
   uploadFile(req, res, (error) => {
+    console.log(req)
     if (error) {
       return res.status(400).json({
         success: false,

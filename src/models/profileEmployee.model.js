@@ -74,7 +74,7 @@ exports.deleteProfileEmployee = async id => {
 
 exports.getProfileEmployee = async id => {
   try {
-    const sql = `SELECT u.picture, u.avatar, u."fullName", u."phoneNumber", pE."jobDesk", pE.domicile, pE.instagram, pE.github, pE.gitlab, pE.description, wT.name FROM users u
+    const sql = `SELECT u.picture, u."fullName", u."phoneNumber", pE."jobDesk", pE.domicile, pE.instagram, pE.github, pE.gitlab, pE.description, wT.name FROM users u
     JOIN "profileEmployee" pE ON pE."userId" = u.id
     JOIN "workTimes" wT ON wT.id = pE."workTimeId"
     WHERE u.id = $1`
